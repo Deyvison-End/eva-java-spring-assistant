@@ -14,24 +14,25 @@ def carregar_conhecimento(caminho):
 
     return conhecimento
 
-resposta = ollama.chat(
-    model="llama3.2:3b",
-    messages=[
-        {
-            "role": "system",
-            "content": ler_arquivo("prompts/system.md")
-        },
-        {
-            "role": "system",
-             "content": carregar_conhecimento("data")
-               
-        },            
-        {
-            "role": "user",
-            "content": input("Digite sua dúvida: ")
-        }
-        ]
-        
-)
 
-print(resposta["message"]["content"])
+def main():
+    prompt_base = ""
+    prompt_base += ler_arquivo("prompts/system.md") + "\n\n" + carregar_conhecimento("data")
+
+    resposta = ollama.chat(
+                    model="llama3.2:3b",
+                    messages=[
+                        {
+                            "role": "system",
+                            "content": prompt_base
+                        },                
+                        {
+                            "role": "user",
+                            "content": input("Digite sua dúvida: ")
+                        }
+                        ]  
+                )
+    print(resposta["message"]["content"])
+
+if __name__ == "__main__":
+    main()
