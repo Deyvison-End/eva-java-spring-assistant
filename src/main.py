@@ -1,41 +1,37 @@
 import ollama
 from pathlib import Path
 
+def ler_arquivo(caminho):
+    with open(caminho, "r", encoding="utf-8") as arquivo:
+        return arquivo.read()
 
-with open("data/java/coesao-e-acoplamento.md", "r", encoding="utf-8") as coesao_acoplamento:
-    coesao_acoplamento = coesao_acoplamento.read()
+def carregar_conhecimento(caminho):
+    arquivos = Path(caminho).rglob("*.md")
+    conhecimento = ""
 
-with open("data/java/poo.md", "r", encoding="utf-8") as poo:
-    poo = poo.read()
+    for arquivo in arquivos:
+        conhecimento += ler_arquivo(arquivo) + "\n\n"
 
-with open("data/spring-boot/api-rest.md", "r", encoding="utf-8") as api_rest: 
-    api_rest = api_rest.read()
-
-with open("data/spring-boot/fundamentos.md", "r", encoding="utf-8") as fundamentos:
-    fundamentos = fundamentos.read()
-
-with open("data/spring-boot/injecao-de-dependencias.md", "r", encoding="utf-8") as injecao_de_dependencias:
-    injecao_de_dependencias = injecao_de_dependencias.read()
-
-with open("docs/agente.md", "r", encoding="utf-8") as agente:
-    agente = agente.read()
-
-with open("prompts/system.md", "r", encoding="utf-8") as prompt_system:
-    prompt_system = prompt_system.read()
+    return conhecimento
 
 resposta = ollama.chat(
     model="llama3.2:3b",
     messages=[
         {
             "role": "system",
-            "content": prompt_system
+            "content": ler_arquivo("prompts/system.md")
         },
+        {
+            "role": "system",
+             "content": carregar_conhecimento("data")
+               
+        },            
         {
             "role": "user",
             "content": input("Digite sua dúvida: ")
         }
-
-    ]
+        ]
+        
 )
 
 print(resposta["message"]["content"])
