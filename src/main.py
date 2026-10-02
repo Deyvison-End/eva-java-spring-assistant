@@ -78,10 +78,20 @@ def main():
         if pontuacao > 0:
             conhecimento_relevante += ler_arquivo(arquivo) + "\n\n"
 
-    prompt_base += "\n\n" + conhecimento_relevante
+    
+
+    prompt_base += """
+
+        ## Base de conhecimento
+
+        Use o conteúdo abaixo como fonte de conhecimento para responder à pergunta.
+        Priorize essas informações e não invente informações que não estejam presentes
+        na base quando a pergunta depender dela.
+
+        """ + "\n\n" + conhecimento_relevante
 
     resposta = ollama.chat(
-        model="llama3.2:3b",
+        model="qwen3:8b",
         messages=[
             {
                 "role": "system",
