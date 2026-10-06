@@ -79,16 +79,22 @@ def main():
             conhecimento_relevante += ler_arquivo(arquivo) + "\n\n"
 
     
+    if conhecimento_relevante.strip():
+        pergunta = f"""### BASE DE CONHECIMENTO
+{conhecimento_relevante}
 
-    prompt_base += """
+### PERGUNTA DO ESTUDANTE
+{pergunta}"""
+        
+    # prompt_base += """
 
-        ## Base de conhecimento
+    #     ## Base de conhecimento
 
-        Use o conteúdo abaixo como fonte de conhecimento para responder à pergunta.
-        Priorize essas informações e não invente informações que não estejam presentes
-        na base quando a pergunta depender dela.
+    #     Use o conteúdo abaixo como fonte de conhecimento para responder à pergunta.
+    #     Priorize essas informações e não invente informações que não estejam presentes
+    #     na base quando a pergunta depender dela.
 
-        """ + "\n\n" + conhecimento_relevante
+    #     """ + conhecimento_relevante
 
     resposta = ollama.chat(
         model="qwen3:8b",
