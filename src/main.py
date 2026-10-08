@@ -60,57 +60,84 @@ def carregar_conhecimento(caminho):
 def main():
     prompt_base = ler_arquivo("prompts/system.md")
 
-    pergunta = input("Digite sua dúvida: ")
+    mensagens = [
+        {
+            "role": "system",
+            "content": prompt_base
+        }
+    ]
 
-    resultados = buscar_conhecimento(pergunta, "data")
+    print("Eva: Olá! Sou a Eva, sua assistente de Java e Spring Boot.")
+    print("Digite 'sair' para encerrar a conversa.\n")
 
-    ordenados = sorted(
-        resultados.items(),
-        key=lambda item: item[1],
-        reverse=True
-    )
+    while True:
+        pergunta = input("Você: ").strip()
 
-    top_3 = ordenados[:3]
+        if pergunta.lower() == "sair":
+            print("Eva: Até a próxima!")
+            break
 
-    conhecimento_relevante = ""
+        if not pergunta:
+            continue
 
-    for arquivo, pontuacao in top_3:
-        if pontuacao > 0:
-            conhecimento_relevante += ler_arquivo(arquivo) + "\n\n"
+        resultados = buscar_conhecimento(pergunta, "data")
 
-    
-    if conhecimento_relevante.strip():
-        pergunta = f"""### BASE DE CONHECIMENTO
+        ordenados = sorted(
+            resultados.items(),
+            key=lambda item: item[1],
+            reverse=True
+        )
+
+        top_3 = [
+            (arquivo, pontuacao)
+            for arquivo, pontuacao in ordenados
+            if pontuacao > 0
+        ][:3]
+
+        conhecimento_relevante = ""
+
+        for arquivo, pontuacao in top_3:
+            conhecimento_relevante += (
+                f"\n### Documento: {arquivo.name}\n"
+                f"{ler_arquivo(arquivo)}\n"
+            )
+
+        pergunta_com_contexto = pergunta
+
+        if conhecimento_relevante.strip():
+            pergunta_com_contexto = f"""
+### BASE DE CONHECIMENTO
 {conhecimento_relevante}
 
 ### PERGUNTA DO ESTUDANTE
-{pergunta}"""
-        
-    # prompt_base += """
+{pergunta}
+"""
 
-    #     ## Base de conhecimento
+        mensagens.append({
+            "role": "user",
+            "content": pergunta_com_contexto
+        })
 
-    #     Use o conteúdo abaixo como fonte de conhecimento para responder à pergunta.
-    #     Priorize essas informações e não invente informações que não estejam presentes
-    #     na base quando a pergunta depender dela.
+        try:
+            resposta = ollama.chat(
+                model="qwen3:8b",
+                messages=mensagens
+            )
 
-    #     """ + conhecimento_relevante
+            conteudo_resposta = resposta["message"]["content"]
 
-    resposta = ollama.chat(
-        model="qwen3:8b",
-        messages=[
-            {
-                "role": "system",
-                "content": prompt_base
-            },
-            {
-                "role": "user",
-                "content": pergunta
-            }
-        ]
-    )
+            print(f"\nEva: {conteudo_resposta}\n")
 
-    print(resposta["message"]["content"])
+            mensagens.append({
+                "role": "assistant",
+                "content": conteudo_resposta
+            })
+
+        except Exception as erro:
+            print(f"\nErro ao consultar o modelo: {erro}\n")
+            mensagens.pop()
+
 
 if __name__ == "__main__":
     main()
+    
