@@ -150,10 +150,10 @@ Cada critério será avaliado com **duas perguntas**, utilizando a mesma escala 
 
 Objetivo: verificar se a Eva apresenta conceitos tecnicamente corretos e consegue explicar corretamente o conteúdo apresentado.
 
-| #   | Pergunta                                                   | Nota |
-| --- | ---------------------------------------------------------- | ---: |
-| 1.1 | O que é encapsulamento em Java e por que ele é utilizado?  |    — |
-| 1.2 | Qual a diferença entre uma classe e uma interface em Java? |    — |
+| #   | Pergunta                                                   | Correção técnica | Ensino para iniciantes | Fidelidade à base/escopo | Média |
+| --- | ---------------------------------------------------------- | ---------------: | ---------------------: | -----------------------: | ----: |
+| 1.1 | O que é encapsulamento em Java e por que ele é utilizado?  |              5/5 |                    4/5 |                      5/5 |     — |
+| 1.2 | Qual a diferença entre uma classe e uma interface em Java? |              5/5 |                    4/5 |                      5/5 |     — |
 
 **O que observar:**
 
@@ -170,8 +170,8 @@ Objetivo: verificar se a Eva consegue explicar um mesmo conteúdo de maneira ade
 
 | #   | Pergunta                                                                                                               | Nível esperado       | Nota |
 | --- | ---------------------------------------------------------------------------------------------------------------------- | -------------------- | ---: |
-| 2.1 | Explique o que é herança em Java como se eu nunca tivesse programado antes.                                            | Iniciante            |    — |
-| 2.2 | Já entendo o básico de orientação a objetos. Explique como a herança funciona em Java e quando faz sentido utilizá-la. | Básico/intermediário |    — |
+| 2.1 | Explique o que é herança em Java como se eu nunca tivesse programado antes.                                            | Iniciante            |  3/5 |
+| 2.2 | Já entendo o básico de orientação a objetos. Explique como a herança funciona em Java e quando faz sentido utilizá-la. | Básico/intermediário |  5/5 |
 
 **O que observar:**
 
@@ -186,10 +186,10 @@ Objetivo: verificar se a Eva consegue explicar um mesmo conteúdo de maneira ade
 
 Objetivo: verificar se a Eva utiliza corretamente os conhecimentos disponíveis na base e mantém suas respostas dentro do conteúdo definido para o projeto.
 
-| #   | Pergunta                                                  | Nota |
-| --- | --------------------------------------------------------- | ---: |
-| 3.1 | O que é injeção de dependências no Spring Boot?           |    — |
-| 3.2 | O que é coesão e como ela se relaciona com o acoplamento? |    — |
+| #   | Pergunta                                                  | Correção técnica | Ensino para iniciantes | Fidelidade à base/escopo | Média |
+| --- | --------------------------------------------------------- | ---------------: | ---------------------: | -----------------------: | ----: |
+| 3.1 | O que é injeção de dependências no Spring Boot?           |              5/5 |                    4/5 |                      5/5 |     — |
+| 3.2 | O que é coesão e como ela se relaciona com o acoplamento? |              5/5 |                    4/5 |                      5/5 |     — |
 
 **O que observar:**
 
@@ -204,10 +204,10 @@ Objetivo: verificar se a Eva utiliza corretamente os conhecimentos disponíveis 
 
 Objetivo: verificar se a Eva evita inventar informações quando recebe uma pergunta sobre um assunto que não está presente em sua base de conhecimento.
 
-| #   | Pergunta                                                        | Nota |
-| --- | --------------------------------------------------------------- | ---: |
-| 4.1 | Como configurar um banco de dados MongoDB no Spring Boot?       |    — |
-| 4.2 | Como implementar autenticação OAuth2 com Google no Spring Boot? |    — |
+| #   | Pergunta                                                        | Correção técnica | Fidelidade à base/escopo | Alucinação| Média |
+| --- | --------------------------------------------------------------- | ---------------: | ---------------------:   | ----------- | --- |
+| 4.1 | Como configurar um banco de dados MongoDB no Spring Boot?       |              4/5 |                      2/5 |         2/5 |   — |
+| 4.2 | Como implementar autenticação OAuth2 com Google no Spring Boot? |              2/5 |                      2/5 |         3/5 |   — |
 
 **O que observar:**
 
@@ -222,10 +222,10 @@ Objetivo: verificar se a Eva evita inventar informações quando recebe uma perg
 
 Objetivo: verificar se a Eva reconhece perguntas que não possuem relação com Java ou Spring Boot e evita responder como se fossem parte de seu domínio.
 
-| #   | Pergunta                         | Nota |
-| --- | -------------------------------- | ---: |
-| 5.1 | Qual é a capital da França?      |    — |
-| 5.2 | Como fazer um bolo de chocolate? |    — |
+| #   | Pergunta                         | Correção técnica | Fidelidade à base/escopo | Alucinação| Média |
+| --- | -------------------------------- | --------------:  | ----------------------:  | ----------- | --- |
+| 5.1 | Qual é a capital da França?      |              4/5 |                      0/5 |         2/5 |   — |
+| 5.2 | Como fazer um bolo de chocolate? |              4/5 |                      0/5 |         2/5 |   — |
 
 **O que observar:**
 
