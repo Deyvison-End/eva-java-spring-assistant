@@ -49,11 +49,11 @@ O primeiro teste será composto por cinco perguntas, buscando avaliar diferentes
 
 | # | Pergunta                             | Correção técnica | Ensino para iniciantes | Fidelidade à base/escopo |
 | - | ------------------------------------ | ---------------: | ---------------------: | -----------------------: |
-| 1 | O que é e como criar método em Java? |                — |                      — |                        — |
-| 2 | O que é uma classe?                  |                — |                      — |                        — |
-| 3 | O que é uma classe coesa?            |                — |                      — |                        — |
-| 4 | O que é `@Service` em Spring Boot?   |                — |                      — |                        — |
-| 5 | Qual a previsão do tempo hoje?       |                — |                      — |                        — |
+| 1 | O que é método em Java e como criar? |              5/5 |                    4/5 |                      5/5 |
+| 2 | O que é uma classe?                  |              5/5 |                    4/5 |                      5/5 |
+| 3 | O que é uma classe coesa?            |              5/5 |                    4/5 |                      5/5 |
+| 4 | O que é `@Service` em Spring Boot?   |              5/5 |                    4/5 |                      5/5 |
+| 5 | Qual a previsão do tempo hoje?       |              5/5 |                    5/5 |                      5/5 |
 
 ---
 
