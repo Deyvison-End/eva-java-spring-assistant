@@ -114,8 +114,9 @@ def gerar_resposta(pergunta, conhecimento_relevante, mensagens):
         return conteudo_resposta
 
 
+
 def main():
-    prompt_base = ler_arquivo("prompts/system.md")
+    prompt_base = carregar_prompt()
 
     mensagens = [
         {
@@ -138,63 +139,20 @@ def main():
             continue
 
         resultados = buscar_conhecimento(pergunta, "data")
-
-        ordenados = sorted(
-            resultados.items(),
-            key=lambda item: item[1],
-            reverse=True
-        )
-
-        top_3 = [
-            (arquivo, pontuacao)
-            for arquivo, pontuacao in ordenados
-            if pontuacao > 0
-        ][:3]
-
-        conhecimento_relevante = ""
-
-        for arquivo, pontuacao in top_3:
-            conhecimento_relevante += (
-                f"\n### Documento: {arquivo.name}\n"
-                f"{ler_arquivo(arquivo)}\n"
-            )
-
-        pergunta_com_contexto = pergunta
-
-        if conhecimento_relevante.strip():
-            pergunta_com_contexto = f"""
-### BASE DE CONHECIMENTO
-{conhecimento_relevante}
-
-### PERGUNTA DO ESTUDANTE
-{pergunta}
-"""
-
-        mensagens.append({
-            "role": "user",
-            "content": pergunta_com_contexto
-        })
+        conhecimento_relevante = montar_contexto(resultados)
 
         try:
-            resposta = ollama.chat(
-                model="qwen3:8b",
-                messages=mensagens
+            resposta = gerar_resposta(
+                pergunta,
+                conhecimento_relevante,
+                mensagens
             )
 
-            conteudo_resposta = resposta["message"]["content"]
-
-            print(f"\nEva: {conteudo_resposta}\n")
-
-            mensagens.append({
-                "role": "assistant",
-                "content": conteudo_resposta
-            })
+            print(f"\nEva: {resposta}\n")
 
         except Exception as erro:
             print(f"\nErro ao consultar o modelo: {erro}\n")
-            mensagens.pop()
 
 
 if __name__ == "__main__":
     main()
-    
