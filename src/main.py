@@ -13,6 +13,10 @@ def tirar_caracteres_especiais(palavras):
 
     return palavras_limpa
 
+def ler_arquivo(caminho):
+    with open(caminho, "r", encoding="utf-8") as arquivo:
+        return arquivo.read()
+
 
 def buscar_conhecimento(pergunta, caminho):
     palavras = pergunta.lower().split()
@@ -42,11 +46,6 @@ def buscar_conhecimento(pergunta, caminho):
 
     return resultados
 
-
-def ler_arquivo(caminho):
-    with open(caminho, "r", encoding="utf-8") as arquivo:
-        return arquivo.read()
-
 def carregar_conhecimento(caminho):
     arquivos = Path(caminho).rglob("*.md")
     conhecimento = ""
@@ -56,7 +55,18 @@ def carregar_conhecimento(caminho):
 
     return conhecimento
 
-def montar_contexto(ordenados):
+def carregar_prompt():
+    caminho_prompt = Path("prompts/system.md")
+    return ler_arquivo(caminho_prompt)
+
+def montar_contexto(conteudo_relevante):
+
+    ordenados = sorted(
+                conteudo_relevante.items(),
+                key=lambda item: item[1],
+                reverse=True
+            )
+    
     top_3 = [
                 (arquivo, pontuacao)
                 for arquivo, pontuacao in ordenados
@@ -74,7 +84,6 @@ def montar_contexto(ordenados):
     return conhecimento_relevante
 
     pass
-
 
 def gerar_resposta(pergunta, conhecimento_relevante, mensagens):
         pergunta_com_contexto = f"""
