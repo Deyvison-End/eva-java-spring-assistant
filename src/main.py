@@ -56,6 +56,54 @@ def carregar_conhecimento(caminho):
 
     return conhecimento
 
+def montar_contexto(ordenados):
+    top_3 = [
+                (arquivo, pontuacao)
+                for arquivo, pontuacao in ordenados
+                if pontuacao > 0
+            ][:3]
+
+    conhecimento_relevante = ""
+
+
+    for arquivo, pontuacao in top_3:
+            conhecimento_relevante += (
+                f"\n### Documento: {arquivo.name}\n"
+                f"{ler_arquivo(arquivo)}\n"
+            )
+    return conhecimento_relevante
+
+    pass
+
+
+def gerar_resposta(pergunta, conhecimento_relevante, mensagens):
+        pergunta_com_contexto = f"""
+    ### BASE DE CONHECIMENTO
+    {conhecimento_relevante}
+
+    ### PERGUNTA DO ESTUDANTE
+    {pergunta}
+"""
+
+        mensagens.append({
+        "role": "user",
+        "content": pergunta_com_contexto
+    })
+
+        resposta = ollama.chat(
+        model="qwen3:8b",
+        messages=mensagens
+    )
+
+        conteudo_resposta = resposta["message"]["content"]
+
+        mensagens.append({
+        "role": "assistant",
+        "content": conteudo_resposta
+    })
+
+        return conteudo_resposta
+
 
 def main():
     prompt_base = ler_arquivo("prompts/system.md")
